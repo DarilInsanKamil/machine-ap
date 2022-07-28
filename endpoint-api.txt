@@ -1,0 +1,159 @@
+STANDAR RESPONSE API
+200 - OK --> Call Api Success
+201 - CREATED --> Post Success
+400 - BAD REQUEST --> Error client side(salah input)
+401 - UNAUTHORIZED --> User not authorized to request
+403 - FORBIDDEN --> User no allowed to access
+404 - NOT FOUND --> Request endpoints not found
+500 - INTERNAL SERVER ERROR --> Error on server side
+505 - BAD GATEWAY --> Invalid response from another request
+
+
+STANDAR API
+
+{root.api}/v1/{grouping}/{endpoints}
+SAMPLE -> http://machineplastic.com/v1/auth/login
+
+
+----------------------- AUTHENTICATION ------------------------
+===============================================================
+===============================================================
+
+============================= LOGIN =============================
+
+{root.api}/v1/auth/login
+
+REQUEST: 
+{
+    "email": "komang@gmail.com"
+    "password": "2132komangf
+}
+
+ERR-RESPONSE: 
+400 --> email atau password yang anda masukan tidak valid
+
+============================= REGISTER =============================
+
+{root.api}/v1/auth/register
+
+REQUEST:
+{
+    "name": "Testing,
+    "email": "komang@gmail.com",
+    "password": "2132komangf"
+}
+RESPONSE:
+201 --> CREATE ACOOUNT SUCCESS
+{
+    "message": 'Berhasil membuat akun',
+    "data": {
+        "id": 1,
+        "name": "Testing,
+        "email": "komang@gmail.com",
+        "password": "2132komangf"
+    }
+}
+
+ERR-RESPONSE: 
+400 --> password harus mempunyai 5 karakter atau lebih
+400 --> password harus mempunyai 1 karakter unik
+
+
+
+--------------------------- PRODUCT ---------------------------
+===============================================================
+===============================================================
+
+============================= Create product =============================
+{root.api}/v1/product
+
+REQUEST:
+{
+    "id": +new Date(),
+    "created_at": new Date().toLocaleString(),
+    "name": "Molding Machine",
+    "deskripsi": "Molding Machine ialah mesin plastic, dan mempunyai berbagai ukuran"
+}
+RESPONSE: 
+201 --> CREATE DATA SUCCESS
+{
+    "message": "Create Data Success",
+    "data": [
+        {
+            "id": +new Date(),
+            "created_at": new Date().toLocaleString(),
+            "name": "Molding Machine",
+            "deskripsi": "Molding Machine ialah mesin plastic, dan mempunyai berbagai ukuran"
+        }
+    ]
+}
+
+ERR-RESPONSE: 
+400 --> title harus mempunyai 5 karakter
+401 --> User harus login terlebih dahulu
+404 --> {root.api}/v1/product invalid URL
+500 --> Internal server error
+
+
+============================= Update product =============================
+{root.api}/v1/product
+
+REQUEST:
+{
+    "name": "Molding Machine",
+    "deskripsi": "Molding Machine ialah mesin plastic, dan mempunyai berbagai ukuran"
+}
+
+RESPONSE: 
+{
+    "message": "Upadate Data Success",
+    "data": [
+        {
+            "id": +new Date(),
+            "created_at": new Date().toLocaleString(),
+            "name": "Molding Machine",
+            "deskripsi": "Molding Machine ialah mesin plastic, dan mempunyai berbagai ukuran"
+        }
+    ]
+}
+
+ERR-RESPONSE: 
+400 --> title harus mempunyai 5 karakter
+401 --> User harus login terlebih dahulu
+404 --> {root.api}/v1/product invalid URL
+500 --> Internal server error
+
+============================= Delete product =============================
+{root.api}/v1/product
+
+REQUEST:
+{
+    "id": +new Date(),
+}
+
+RESPONSE: 
+{
+    "message": "Delete Data Success",
+    "data": []
+}
+
+
+============================= Get all product ============================
+{root.api}/v1/product
+
+RESPONSE: 
+{
+    "message": "Create Data Success",
+    "data": [
+        {
+            "id": +new Date(),
+            "created_at": new Date().toLocaleString(),
+            "name": "Molding Machine",
+            "deskripsi": "Molding Machine ialah mesin plastic, dan mempunyai berbagai ukuran"
+        }
+    ]
+}
+
+ERR-RESPONSE: 
+404 --> {root.api}/v1/product invalid URL
+500 --> Internal server error
