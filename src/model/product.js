@@ -14,6 +14,14 @@ const ProductPost = new Schema({
         type: String,
         required: true
     },
+    imagespek: {
+        type: String,
+        required: false
+    },
+    kategori: {
+        type: String,
+        required: true
+    },
     author: {
         type: Object,
         required: true

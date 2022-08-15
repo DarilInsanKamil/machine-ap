@@ -5,6 +5,7 @@ const fs = require('fs')
 
 // [POST] ==> v1/product/post
 exports.createProduct = (req, res, next) => {
+
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -24,11 +25,14 @@ exports.createProduct = (req, res, next) => {
     const title = req.body.title
     const image = req.file.path
     const deskripsi = req.body.deskripsi
+    const kategori = req.body.kategori
+    // console.log('imagespek', imagespek)
 
     const PostData = new ProductPost({
         title: title,
         deskripsi: deskripsi,
         image: image,
+        kategori: kategori,
         author: { uid: 1, name: 'komangg' }
     })
 
@@ -42,6 +46,10 @@ exports.createProduct = (req, res, next) => {
         .catch(err => {
             console.log('err', err)
         })
+    console.log('title', title)
+    console.log('deskripsi', deskripsi)
+    console.log('kategori', kategori)
+    console.log('image', image)
 }
 
 // [GET] ==> v1/product/products
@@ -98,8 +106,8 @@ exports.updateProductById = (req, res, next) => {
 
     const title = req.body.title
     const image = req.file.path
-    const spesifikasi = req.file.path
     const deskripsi = req.body.deskripsi
+    const kategori = req.body.kategori
     const postId = req.params.postId
 
     ProductPost.findById(postId)
@@ -111,8 +119,8 @@ exports.updateProductById = (req, res, next) => {
             }
             post.title = title
             post.deskripsi = deskripsi
+            post.kategori = kategori
             post.image = image
-            post.spesifikasi = spesifikasi
 
             return post.save()
         })
@@ -146,7 +154,6 @@ exports.deleteProductById = (req, res, next) => {
                 throw err
             }
             removeImage(post.image)
-            // removeImage(post.spesifikasi)
             return ProductPost.findByIdAndRemove(postId)
         })
         .then(result => {

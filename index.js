@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 4000
+const port = 4001
 const productRoutes = require('./src/routes/products')
 const authRoutes = require('./src/routes/auth')
 const bodyparser = require('body-parser')
@@ -17,6 +17,17 @@ const fileStorage = multer.diskStorage({
     }
 })
 
+// const fileImageSpek = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, "imagespek");
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, new Date().getTime() + "-" + file.originalname);
+//     }
+// })
+
+
+
 const fileFilter = (req, file, cb) => {
     if (
         file.mimetype === 'image/png' ||
@@ -29,10 +40,12 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
+
 app.use(bodyparser.json())
 app.use('/images', express.static(path.join(__dirname, 'images')))
+// app.use('/imagespek', express.static(path.join(__dirname, 'imagespek')))
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'))
-
+// app.use(multer({ storage: fileImageSpek, fileFilter: fileFilter }).single('image'))
 
 app.use((req, res, next) => {
     res.setHeader('Access-control-Allow-Origin', '*')
